@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Testing Playground</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Automation Testing Playground</h1>
+        
+        <!-- Section 1: Dropdown that changes displayed text -->
+        <section id="dropdown-section">
+            <h2>Dropdown Testing</h2>
+            <p>Select an option from the dropdown to display different text:</p>
+            <select id="testDropdown">
+                <option value="">-- Select an option --</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+            <div id="dropdownResult" class="result"></div>
+        </section>
+        
+        <!-- Section 2: Button that triggers alerts -->
+        <section id="alert-section">
+            <h2>Alert Testing</h2>
+            <p>Click the buttons to trigger different types of alerts:</p>
+            <button id="showAlertBtn">Show Alert Box</button>
+            <button id="showConfirmBtn">Show Confirm Box</button>
+            <button id="showPromptBtn">Show Prompt Box</button>
+            <button id="showCustomAlertBtn">Show Custom Alert</button>
+            <div id="customAlert" class="alert">This is a custom alert that can be easily detected with automation tools!</div>
+            <div id="alertResult" class="result"></div>
+        </section>
+        
+        <!-- Section 3: Checkboxes that show/hide content -->
+        <section id="checkbox-section">
+            <h2>Checkbox Testing</h2>
+            <p>Check the boxes to reveal hidden content:</p>
+            <div class="checkbox-container">
+                <div>
+                    <input type="checkbox" id="checkbox1" name="checkbox1">
+                    <label for="checkbox1">Show First Content</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="checkbox2" name="checkbox2">
+                    <label for="checkbox2">Show Second Content</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="checkbox3" name="checkbox3">
+                    <label for="checkbox3">Enable Button</label>
+                </div>
+            </div>
+            <div id="checkbox1Result" class="result">This content appears when Checkbox 1 is checked!</div>
+            <div id="checkbox2Result" class="result">This content appears when Checkbox 2 is checked!</div>
+            <button id="conditionalBtn" disabled>This Button is Enabled by Checkbox 3</button>
+            <div id="checkboxBtnResult" class="result"></div>
+        </section>
+        
+        <!-- Section 4: Input fields with validation -->
+        <section id="input-section">
+            <h2>Input Field Testing</h2>
+            <p>Enter information and test validation:</p>
+            <div>
+                <label for="nameInput">Name (letters only):</label>
+                <input type="text" id="nameInput" placeholder="Enter your name">
+            </div>
+            <div>
+                <label for="emailInput">Email:</label>
+                <input type="email" id="emailInput" placeholder="Enter valid email">
+            </div>
+            <div>
+                <label for="passwordInput">Password (min 6 characters):</label>
+                <input type="password" id="passwordInput" placeholder="Enter password">
+            </div>
+            <button id="validateBtn">Validate Fields</button>
+            <div id="validationResult" class="result"></div>
+        </section>
+        
+        <!-- Section 5: Dynamic content loading -->
+        <section id="dynamic-section">
+            <h2>Dynamic Content Testing</h2>
+            <p>Test dynamic content loading:</p>
+            <button id="loadContentBtn">Load Content</button>
+            <div id="loading" class="loading">Loading content...</div>
+            <div id="dynamicContent" class="result"></div>
+            <button id="addItemBtn">Add List Item</button>
+            <ul id="dynamicList"></ul>
+        </section>
+        
+        <!-- Section 6: Table with sortable columns -->
+        <section id="table-section">
+            <h2>Table Testing</h2>
+            <p>Click column headers to sort the table:</p>
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th data-sort="id">ID</th>
+                        <th data-sort="name">Name</th>
+                        <th data-sort="age">Age</th>
+                        <th data-sort="city">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Smith</td>
+                        <td>28</td>
+                        <td>New York</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alice Johnson</td>
+                        <td>34</td>
+                        <td>Chicago</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Bob Williams</td>
+                        <td>42</td>
+                        <td>Los Angeles</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Emma Davis</td>
+                        <td>21</td>
+                        <td>Boston</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Section 7: Drag and Drop -->
+        <section id="drag-section">
+            <h2>Drag and Drop Testing</h2>
+            <p>Drag items between containers:</p>
+            <div style="display: flex; gap: 20px;">
+                <div id="dragContainer1" style="flex: 1; min-height: 150px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <p>Container 1</p>
+                    <div class="drag-item" draggable="true" id="item1">Item 1</div>
+                    <div class="drag-item" draggable="true" id="item2">Item 2</div>
+                    <div class="drag-item" draggable="true" id="item3">Item 3</div>
+                </div>
+                <div id="dragContainer2" style="flex: 1; min-height: 150px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <p>Container 2</p>
+                </div>
+            </div>
+            <div id="dragResult" class="result"></div>
+        </section>
+        
+        <!-- Section 8: Progress Bar -->
+        <section id="progress-section">
+            <h2>Progress Bar Testing</h2>
+            <p>Test progress bar functionality:</p>
+            <div id="progressBar">
+                <div id="progressBarFill"></div>
+            </div>
+            <button id="startProgressBtn">Start Progress</button>
+            <button id="resetProgressBtn">Reset Progress</button>
+            <div id="progressStatus" class="result"></div>
+        </section>
+        
+        <!-- Section 9: Image Testing -->
+        <section id="image-section" class="image-section">
+            <h2>Image Testing</h2>
+            <p>Test image loading and interactions:</p>
+            <img src="pictures\cat.jpg" alt="Test Image 1" id="testImage1">
+            <div style="margin: 10px 0;">
+                <button id="changeImageBtn">Change Image</button>
+            </div>
+            <img src="pictures\bunny.jpg" alt="Test Image 2" id="testImage2" style="display: none;">
+        </section>
+        
+        <!-- Section 10: Hover Effects -->
+        <section id="hover-section">
+            <h2>Hover Testing</h2>
+            <p>Hover over the area below to see effects:</p>
+            <div class="hover-area" id="hoverArea">
+                Hover over this area
+                <div id="hoverText">You're hovering over me!</div>
+            </div>
+        </section>
+        
+        <!-- Section 11: Radio Buttons -->
+        <section id="radio-section">
+            <h2>Radio Button Testing</h2>
+            <p>Select one of the options:</p>
+            <div>
+                <input type="radio" id="radio1" name="radioGroup" value="option1">
+                <label for="radio1">Option 1</label>
+            </div>
+            <div>
+                <input type="radio" id="radio2" name="radioGroup" value="option2">
+                <label for="radio2">Option 2</label>
+            </div>
+            <div>
+                <input type="radio" id="radio3" name="radioGroup" value="option3">
+                <label for="radio3">Option 3</label>
+            </div>
+            <div id="radioResult" class="result"></div>
+        </section>
+        
+        <!-- Section 12: Iframe Content -->
+        <section id="iframe-section">
+            <h2>iFrame Testing</h2>
+            <p>Test interactions with iframe content:</p>
+            <iframe id="testIframe" src="about:blank" style="width: 100%; height: 100px; border: 1px solid #ddd;"></iframe>
+            <button id="updateIframeBtn">Update iFrame Content</button>
+        </section>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
