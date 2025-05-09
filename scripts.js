@@ -293,3 +293,37 @@ document.getElementById('updateIframeBtn').addEventListener('click', function() 
     iframeDoc.write('<html><head><style>body{font-family:Arial;text-align:center;padding:10px}button{padding:5px 10px}</style></head><body><div>This is iframe content</div><button id="iframeBtn">Click Me</button><div id="iframeResult"></div><script>document.getElementById("iframeBtn").addEventListener("click",function(){document.getElementById("iframeResult").textContent="Button in iframe clicked!"});<\/script></body></html>');
     iframeDoc.close();
 });
+
+// Function to update iframe height based on content
+function adjustIframeHeight() {
+    const iframe = document.getElementById('testIframe');
+    if (!iframe) return;
+    
+    // Add class when iframe has content
+    iframe.classList.add('has-content');
+    
+    // Try to adjust height based on content if possible
+    try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        if (iframeDoc) {
+            const content = iframeDoc.body;
+            if (content) {
+                // Get content height (with small buffer)
+                const contentHeight = content.scrollHeight + 30;
+                
+                // Set minimum and maximum height constraints
+                const height = Math.max(150, Math.min(contentHeight, 300));
+                iframe.style.height = height + 'px';
+            }
+        }
+    } catch (e) {
+        // Security restrictions might prevent access
+        console.log('Could not adjust iframe height dynamically');
+    }
+}
+
+// Update iframe height when content changes
+document.getElementById('updateIframeBtn').addEventListener('click', function() {
+    // Wait a bit for the iframe content to be updated
+    setTimeout(adjustIframeHeight, 100);
+});

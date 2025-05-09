@@ -36,28 +36,33 @@
         </section>
         
         <!-- Section 3: Checkboxes that show/hide content -->
-        <section id="checkbox-section">
-            <h2>Checkbox Testing</h2>
-            <p>Check the boxes to reveal hidden content:</p>
-            <div class="checkbox-container">
-                <div>
-                    <input type="checkbox" id="checkbox1" name="checkbox1">
-                    <label for="checkbox1">Show First Content</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="checkbox2" name="checkbox2">
-                    <label for="checkbox2">Show Second Content</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="checkbox3" name="checkbox3">
-                    <label for="checkbox3">Enable Button</label>
-                </div>
-            </div>
-            <div id="checkbox1Result" class="result">This content appears when Checkbox 1 is checked!</div>
-            <div id="checkbox2Result" class="result">This content appears when Checkbox 2 is checked!</div>
-            <button id="conditionalBtn" disabled>This Button is Enabled by Checkbox 3</button>
-            <div id="checkboxBtnResult" class="result"></div>
-        </section>
+       <!-- Checkbox Section with improved alignment -->
+<section id="checkbox-section">
+    <h2>Checkbox Testing</h2>
+    <p>Check the boxes to reveal hidden content:</p>
+    
+    <div class="checkbox-container">
+        <div class="checkbox-option">
+            <input type="checkbox" id="checkbox1" name="checkbox1">
+            <label for="checkbox1">Show First Content</label>
+        </div>
+        
+        <div class="checkbox-option">
+            <input type="checkbox" id="checkbox2" name="checkbox2">
+            <label for="checkbox2">Show Second Content</label>
+        </div>
+        
+        <div class="checkbox-option">
+            <input type="checkbox" id="checkbox3" name="checkbox3">
+            <label for="checkbox3">Enable Button</label>
+        </div>
+    </div>
+    
+    <div id="checkbox1Result" class="checkbox-result">This content appears when Checkbox 1 is checked!</div>
+    <div id="checkbox2Result" class="checkbox-result">This content appears when Checkbox 2 is checked!</div>
+    <button id="conditionalBtn" disabled>This Button is Enabled by Checkbox 3</button>
+    <div id="checkboxBtnResult" class="checkbox-result"></div>
+</section>
         
         <!-- Section 4: Input fields with validation -->
         <section id="input-section">
@@ -188,31 +193,42 @@
         </section>
         
         <!-- Section 11: Radio Buttons -->
-        <section id="radio-section">
+            <section id="radio-section">
             <h2>Radio Button Testing</h2>
             <p>Select one of the options:</p>
-            <div>
-                <input type="radio" id="radio1" name="radioGroup" value="option1">
-                <label for="radio1">Option 1</label>
+            
+            <div class="radio-options">
+                <div class="radio-option">
+                    <input type="radio" id="radio1" name="radioGroup" value="option1">
+                    <label for="radio1">Option 1</label>
+                </div>
+                
+                <div class="radio-option">
+                    <input type="radio" id="radio2" name="radioGroup" value="option2">
+                    <label for="radio2">Option 2</label>
+                </div>
+                
+                <div class="radio-option">
+                    <input type="radio" id="radio3" name="radioGroup" value="option3">
+                    <label for="radio3">Option 3</label>
+                </div>
             </div>
-            <div>
-                <input type="radio" id="radio2" name="radioGroup" value="option2">
-                <label for="radio2">Option 2</label>
-            </div>
-            <div>
-                <input type="radio" id="radio3" name="radioGroup" value="option3">
-                <label for="radio3">Option 3</label>
-            </div>
+            
             <div id="radioResult" class="result"></div>
         </section>
+    
+ <div id="radioResult" class="result"></div>
+</section>
         
         <!-- Section 12: Iframe Content -->
         <section id="iframe-section">
             <h2>iFrame Testing</h2>
             <p>Test interactions with iframe content:</p>
+            
             <div class="responsive-iframe-container">
                 <iframe id="testIframe" src="about:blank"></iframe>
             </div>
+            
             <button id="updateIframeBtn">Update iFrame Content</button>
         </section>
     </div>
