@@ -134,26 +134,43 @@ document.getElementById('addItemBtn').addEventListener('click', function() {
     list.appendChild(newItem);
 });
 
-// Section 6: Sortable table
-document.querySelectorAll('#dataTable th').forEach(th => {
-    th.addEventListener('click', function() {
-        const sortBy = this.getAttribute('data-sort');
-        const tbody = document.querySelector('#dataTable tbody');
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-        
-        const sortedRows = rows.sort((a, b) => {
-            const aCol = a.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
-            const bCol = b.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
-            
-            if (sortBy === 'age') {
-                return parseInt(aCol) - parseInt(bCol);
-            } else {
-                return aCol.localeCompare(bCol);
+// Section 6: Sortable table with responsive data attributes
+document.addEventListener('DOMContentLoaded', function() {
+    // Add data-label attributes to table cells for responsive design
+    const table = document.getElementById('dataTable');
+    const headerCells = table.querySelectorAll('th');
+    const rows = table.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        cells.forEach((cell, i) => {
+            if (headerCells[i]) {
+                cell.setAttribute('data-label', headerCells[i].textContent);
             }
         });
-        
-        tbody.innerHTML = '';
-        sortedRows.forEach(row => tbody.appendChild(row));
+    });
+    
+    // Sorting functionality
+    document.querySelectorAll('#dataTable th').forEach(th => {
+        th.addEventListener('click', function() {
+            const sortBy = this.getAttribute('data-sort');
+            const tbody = document.querySelector('#dataTable tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            const sortedRows = rows.sort((a, b) => {
+                const aCol = a.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
+                const bCol = b.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
+                
+                if (sortBy === 'age') {
+                    return parseInt(aCol) - parseInt(bCol);
+                } else {
+                    return aCol.localeCompare(bCol);
+                }
+            });
+            
+            tbody.innerHTML = '';
+            sortedRows.forEach(row => tbody.appendChild(row));
+        });
     });
 });
 
@@ -231,17 +248,18 @@ document.getElementById('resetProgressBtn').addEventListener('click', function()
     status.textContent = 'Progress reset to 0%';
 });
 
-// Section 9: Image Testing
+// Section 9: Image Testing with fixed toggle functionality
 document.getElementById('changeImageBtn').addEventListener('click', function() {
     const img1 = document.getElementById('testImage1');
     const img2 = document.getElementById('testImage2');
     
-    if (img1.style.display !== 'none') {
-        img1.style.display = 'none';
-        img2.style.display = 'block';
+    // Toggle visibility
+    if (img1.classList.contains('hidden')) {
+        img1.classList.remove('hidden');
+        img2.classList.add('hidden');
     } else {
-        img1.style.display = 'block';
-        img2.style.display = 'none';
+        img1.classList.add('hidden');
+        img2.classList.remove('hidden');
     }
 });
 

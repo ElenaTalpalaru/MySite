@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Automation Testing Playground</h1>
+        <h1 class="main-title">Automation Testing Playground</h1>
         
         <!-- Section 1: Dropdown that changes displayed text -->
         <section id="dropdown-section">
@@ -63,15 +63,15 @@
         <section id="input-section">
             <h2>Input Field Testing</h2>
             <p>Enter information and test validation:</p>
-            <div>
+            <div class="form-group">
                 <label for="nameInput">Name (letters only):</label>
                 <input type="text" id="nameInput" placeholder="Enter your name">
             </div>
-            <div>
+            <div class="form-group">
                 <label for="emailInput">Email:</label>
                 <input type="email" id="emailInput" placeholder="Enter valid email">
             </div>
-            <div>
+            <div class="form-group">
                 <label for="passwordInput">Password (min 6 characters):</label>
                 <input type="password" id="passwordInput" placeholder="Enter password">
             </div>
@@ -136,14 +136,14 @@
         <section id="drag-section">
             <h2>Drag and Drop Testing</h2>
             <p>Drag items between containers:</p>
-            <div style="display: flex; gap: 20px;">
-                <div id="dragContainer1" style="flex: 1; min-height: 150px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9;">
+            <div class="drag-container-wrapper">
+                <div id="dragContainer1" class="drag-container">
                     <p>Container 1</p>
                     <div class="drag-item" draggable="true" id="item1">Item 1</div>
                     <div class="drag-item" draggable="true" id="item2">Item 2</div>
                     <div class="drag-item" draggable="true" id="item3">Item 3</div>
                 </div>
-                <div id="dragContainer2" style="flex: 1; min-height: 150px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                <div id="dragContainer2" class="drag-container">
                     <p>Container 2</p>
                 </div>
             </div>
@@ -166,11 +166,15 @@
         <section id="image-section" class="image-section">
             <h2>Image Testing</h2>
             <p>Test image loading and interactions:</p>
-            <img src="pictures\cat.jpg" alt="Test Image 1" id="testImage1">
-            <div style="margin: 10px 0;">
+            <div class="responsive-image-container">
+                <img src="pictures\cat.jpg" alt="Test Image 1" id="testImage1" class="responsive-image">
+            </div>
+            <div class="button-container">
                 <button id="changeImageBtn">Change Image</button>
             </div>
-            <img src="pictures\bunny.jpg" alt="Test Image 2" id="testImage2" style="display: none;">
+            <div class="responsive-image-container">
+                <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?q=80&w=600&auto=format&fit=crop" alt="Test Image 2" id="testImage2" class="responsive-image hidden">
+            </div>
         </section>
         
         <!-- Section 10: Hover Effects -->
@@ -206,7 +210,9 @@
         <section id="iframe-section">
             <h2>iFrame Testing</h2>
             <p>Test interactions with iframe content:</p>
-            <iframe id="testIframe" src="about:blank" style="width: 100%; height: 100px; border: 1px solid #ddd;"></iframe>
+            <div class="responsive-iframe-container">
+                <iframe id="testIframe" src="about:blank"></iframe>
+            </div>
             <button id="updateIframeBtn">Update iFrame Content</button>
         </section>
     </div>
