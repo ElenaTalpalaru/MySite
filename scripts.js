@@ -138,40 +138,42 @@ document.getElementById('addItemBtn').addEventListener('click', function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Add data-label attributes to table cells for responsive design
     const table = document.getElementById('dataTable');
-    const headerCells = table.querySelectorAll('th');
-    const rows = table.querySelectorAll('tbody tr');
-    
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        cells.forEach((cell, i) => {
-            if (headerCells[i]) {
-                cell.setAttribute('data-label', headerCells[i].textContent);
-            }
-        });
-    });
-    
-    // Sorting functionality
-    document.querySelectorAll('#dataTable th').forEach(th => {
-        th.addEventListener('click', function() {
-            const sortBy = this.getAttribute('data-sort');
-            const tbody = document.querySelector('#dataTable tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            
-            const sortedRows = rows.sort((a, b) => {
-                const aCol = a.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
-                const bCol = b.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
-                
-                if (sortBy === 'age') {
-                    return parseInt(aCol) - parseInt(bCol);
-                } else {
-                    return aCol.localeCompare(bCol);
+    if (table) {
+        const headerCells = table.querySelectorAll('th');
+        const rows = table.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            cells.forEach((cell, i) => {
+                if (headerCells[i]) {
+                    cell.setAttribute('data-label', headerCells[i].textContent);
                 }
             });
-            
-            tbody.innerHTML = '';
-            sortedRows.forEach(row => tbody.appendChild(row));
         });
-    });
+        
+        // Sorting functionality
+        document.querySelectorAll('#dataTable th').forEach(th => {
+            th.addEventListener('click', function() {
+                const sortBy = this.getAttribute('data-sort');
+                const tbody = document.querySelector('#dataTable tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                const sortedRows = rows.sort((a, b) => {
+                    const aCol = a.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
+                    const bCol = b.querySelector(`td:nth-child(${getColumnIndex(sortBy)})`).textContent;
+                    
+                    if (sortBy === 'age') {
+                        return parseInt(aCol) - parseInt(bCol);
+                    } else {
+                        return aCol.localeCompare(bCol);
+                    }
+                });
+                
+                tbody.innerHTML = '';
+                sortedRows.forEach(row => tbody.appendChild(row));
+            });
+        });
+    }
 });
 
 function getColumnIndex(columnName) {
@@ -186,175 +188,193 @@ document.querySelectorAll('.drag-item').forEach(item => {
     });
 });
 
-const dropTargets = [
-    document.getElementById('dragContainer1'),
-    document.getElementById('dragContainer2')
-];
+function setupDragAndDrop() {
+    const dropTargets = [
+        document.getElementById('dragContainer1'),
+        document.getElementById('dragContainer2')
+    ];
+    
+    if (!dropTargets[0] || !dropTargets[1]) return;
+    
+    dropTargets.forEach(target => {
+        target.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.backgroundColor = '#e3f2fd';
+        });
+        
+        target.addEventListener('dragleave', function() {
+            this.style.backgroundColor = '#f9f9f9';
+        });
+        
+        target.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.backgroundColor = '#f9f9f9';
+            
+            const itemId = e.dataTransfer.getData('text/plain');
+            const item = document.getElementById(itemId);
+            
+            if (item) {
+                this.appendChild(item);
+                
+                const result = document.getElementById('dragResult');
+                if (result) {
+                    result.style.display = 'block';
+                    result.textContent = `Item ${itemId} was moved to ${this.id}`;
+                }
+            }
+        });
+    });
+}
 
-dropTargets.forEach(target => {
-    target.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.style.backgroundColor = '#e3f2fd';
-    });
-    
-    target.addEventListener('dragleave', function() {
-        this.style.backgroundColor = '#f9f9f9';
-    });
-    
-    target.addEventListener('drop', function(e) {
-        e.preventDefault();
-        this.style.backgroundColor = '#f9f9f9';
-        
-        const itemId = e.dataTransfer.getData('text/plain');
-        const item = document.getElementById(itemId);
-        
-        this.appendChild(item);
-        
-        const result = document.getElementById('dragResult');
-        result.style.display = 'block';
-        result.textContent = `Item ${itemId} was moved to ${this.id}`;
-    });
-});
+// Setup drag and drop when DOM is ready
+document.addEventListener('DOMContentLoaded', setupDragAndDrop);
 
 // Section 8: Progress Bar
 let progressInterval;
-document.getElementById('startProgressBtn').addEventListener('click', function() {
-    const progressBar = document.getElementById('progressBarFill');
-    const status = document.getElementById('progressStatus');
+function setupProgressBar() {
+    const startBtn = document.getElementById('startProgressBtn');
+    const resetBtn = document.getElementById('resetProgressBtn');
     
-    let width = 0;
-    progressBar.style.width = '0%';
-    status.style.display = 'block';
-    status.textContent = 'Progress: 0%';
+    if (!startBtn || !resetBtn) return;
     
-    clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-        if (width >= 100) {
-            clearInterval(progressInterval);
-            status.textContent = 'Progress complete!';
-        } else {
-            width++;
-            progressBar.style.width = width + '%';
-            status.textContent = `Progress: ${width}%`;
-        }
-    }, 50);
-});
-
-document.getElementById('resetProgressBtn').addEventListener('click', function() {
-    clearInterval(progressInterval);
-    document.getElementById('progressBarFill').style.width = '0%';
-    const status = document.getElementById('progressStatus');
-    status.style.display = 'block';
-    status.textContent = 'Progress reset to 0%';
-});
-
-// Section 9: Image Testing with fixed toggle functionality
-document.getElementById('changeImageBtn').addEventListener('click', function() {
-    const img1 = document.getElementById('testImage1');
-    const img2 = document.getElementById('testImage2');
-    
-    // Toggle visibility
-    if (img1.classList.contains('hidden')) {
-        img1.classList.remove('hidden');
-        img2.classList.add('hidden');
-    } else {
-        img1.classList.add('hidden');
-        img2.classList.remove('hidden');
-    }
-});
-
-// Section 10: Hover Effects
-const hoverArea = document.getElementById('hoverArea');
-const hoverText = document.getElementById('hoverText');
-
-hoverArea.addEventListener('mouseenter', function() {
-    hoverText.style.display = 'block';
-});
-
-hoverArea.addEventListener('mouseleave', function() {
-    hoverText.style.display = 'none';
-});
-
-// Section 11: Radio Buttons
-document.querySelectorAll('input[name="radioGroup"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        const result = document.getElementById('radioResult');
-        result.style.display = 'block';
-        result.textContent = `You selected: ${this.value}`;
-    });
-});
-
-// Section 12: iFrame
-document.getElementById('updateIframeBtn').addEventListener('click', function() {
-    const iframe = document.getElementById('testIframe');
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    
-    iframeDoc.open();
-    iframeDoc.write('<html><head><style>body{font-family:Arial;text-align:center;padding:10px}button{padding:5px 10px}</style></head><body><div>This is iframe content</div><button id="iframeBtn">Click Me</button><div id="iframeResult"></div><script>document.getElementById("iframeBtn").addEventListener("click",function(){document.getElementById("iframeResult").textContent="Button in iframe clicked!"});<\/script></body></html>');
-    iframeDoc.close();
-});
-
-// Function to update iframe height based on content
-function adjustIframeHeight() {
-    const iframe = document.getElementById('testIframe');
-    if (!iframe) return;
-    
-    // Add class when iframe has content
-    iframe.classList.add('has-content');
-    
-    // Try to adjust height based on content if possible
-    try {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-        if (iframeDoc) {
-            const content = iframeDoc.body;
-            if (content) {
-                // Get content height (with small buffer)
-                const contentHeight = content.scrollHeight + 30;
-                
-                // Set minimum and maximum height constraints
-                const height = Math.max(150, Math.min(contentHeight, 300));
-                iframe.style.height = height + 'px';
+    startBtn.addEventListener('click', function() {
+        const progressBar = document.getElementById('progressBarFill');
+        const status = document.getElementById('progressStatus');
+        
+        if (!progressBar || !status) return;
+        
+        let width = 0;
+        progressBar.style.width = '0%';
+        status.style.display = 'block';
+        status.textContent = 'Progress: 0%';
+        
+        clearInterval(progressInterval);
+        progressInterval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(progressInterval);
+                status.textContent = 'Progress complete!';
+            } else {
+                width++;
+                progressBar.style.width = width + '%';
+                status.textContent = `Progress: ${width}%`;
             }
-        }
-    } catch (e) {
-        // Security restrictions might prevent access
-        console.log('Could not adjust iframe height dynamically');
-    }
+        }, 50);
+    });
+    
+    resetBtn.addEventListener('click', function() {
+        const progressBar = document.getElementById('progressBarFill');
+        const status = document.getElementById('progressStatus');
+        
+        if (!progressBar || !status) return;
+        
+        clearInterval(progressInterval);
+        progressBar.style.width = '0%';
+        status.style.display = 'block';
+        status.textContent = 'Progress reset to 0%';
+    });
 }
 
-// Update iframe height when content changes
-document.getElementById('updateIframeBtn').addEventListener('click', function() {
-    // Wait a bit for the iframe content to be updated
-    setTimeout(adjustIframeHeight, 100);
-});
+// Setup progress bar when DOM is ready
+document.addEventListener('DOMContentLoaded', setupProgressBar);
 
-// Back to Top Button Functionality
-// back to top not working -- need to find out
-document.addEventListener('DOMContentLoaded', function() {
-    // Find the button element
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    if (!backToTopBtn) return;
+// Section 9: Image Testing with fixed toggle functionality
+function setupImageToggle() {
+    const changeBtn = document.getElementById('changeImageBtn');
+    if (!changeBtn) return;
     
-    // Add click event listener
-    backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // Show/hide button on scroll
-    window.addEventListener('scroll', function() {
-        // Use a simpler threshold - show button after scrolling 300px
-        if (window.pageYOffset > 300) {
-            backToTopBtn.style.display = 'block';
+    changeBtn.addEventListener('click', function() {
+        const img1 = document.getElementById('testImage1');
+        const img2 = document.getElementById('testImage2');
+        
+        if (!img1 || !img2) return;
+        
+        // Toggle visibility
+        if (img1.classList.contains('hidden')) {
+            img1.classList.remove('hidden');
+            img2.classList.add('hidden');
         } else {
-            backToTopBtn.style.display = 'none';
+            img1.classList.add('hidden');
+            img2.classList.remove('hidden');
         }
     });
+}
+
+// Setup image toggle when DOM is ready
+document.addEventListener('DOMContentLoaded', setupImageToggle);
+
+// Section 10: Hover Effects
+function setupHoverEffects() {
+    const hoverArea = document.getElementById('hoverArea');
+    const hoverText = document.getElementById('hoverText');
     
-    // Initial check in case page is refreshed while already scrolled down
-    if (window.pageYOffset > 300) {
-        backToTopBtn.style.display = 'block';
-    }
+    if (!hoverArea || !hoverText) return;
+    
+    hoverArea.addEventListener('mouseenter', function() {
+        hoverText.style.display = 'block';
+    });
+    
+    hoverArea.addEventListener('mouseleave', function() {
+        hoverText.style.display = 'none';
+    });
+}
+
+// Setup hover effects when DOM is ready
+document.addEventListener('DOMContentLoaded', setupHoverEffects);
+
+// Section 11: Radio Buttons
+function setupRadioButtons() {
+    document.querySelectorAll('input[name="radioGroup"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const result = document.getElementById('radioResult');
+            if (!result) return;
+            
+            result.style.display = 'block';
+            result.textContent = `You selected: ${this.value}`;
+        });
+    });
+}
+
+// Setup radio buttons when DOM is ready
+document.addEventListener('DOMContentLoaded', setupRadioButtons);
+
+// Section 12: iFrame
+function setupIframe() {
+    const updateBtn = document.getElementById('updateIframeBtn');
+    if (!updateBtn) return;
+    
+    updateBtn.addEventListener('click', function() {
+        const iframe = document.getElementById('testIframe');
+        if (!iframe) return;
+        
+        try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            iframeDoc.open();
+            iframeDoc.write('<html><head><style>body{font-family:Arial;text-align:center;padding:10px}button{padding:5px 10px}</style></head><body><div>This is iframe content</div><button id="iframeBtn">Click Me</button><div id="iframeResult"></div><script>document.getElementById("iframeBtn").addEventListener("click",function(){document.getElementById("iframeResult").textContent="Button in iframe clicked!"});<\/script></body></html>');
+            iframeDoc.close();
+            
+            // Adjust iframe height after content is loaded
+            setTimeout(function() {
+                iframe.style.height = '200px';
+                if (iframe.classList) {
+                    iframe.classList.add('has-content');
+                }
+            }, 100);
+        } catch (e) {
+            console.log('Could not update iframe content:', e);
+        }
+    });
+}
+
+// Setup iframe when DOM is ready
+document.addEventListener('DOMContentLoaded', setupIframe);
+
+// Initialize all components when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    setupDragAndDrop();
+    setupProgressBar();
+    setupImageToggle();
+    setupHoverEffects();
+    setupRadioButtons();
+    setupIframe();
 });

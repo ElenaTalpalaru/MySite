@@ -6,10 +6,24 @@
     <meta name="description" content="Elena Talpalaru's page for automation testing">
     <meta name="keywords" content="automation, testing">
     <meta name="author" content="Elena Talpalaru">
-     <title class="Automation Testing">🤖 Automation Testing Playground</title>
+    <title class="Automation Testing">🤖 Automation Testing Playground</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Fix for mobile scrolling issues on GitHub Pages -->
+    <script>
+        (function() {
+            // Force body to be scrollable on mobile
+            document.body.style.height = 'auto';
+            document.body.style.overflowY = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+            
+            // Prevent pull-to-refresh on mobile which can interfere with scrolling
+            document.body.style.overscrollBehavior = 'none';
+            document.documentElement.style.overscrollBehavior = 'none';
+        })();
+    </script>
+
     <div class="container">
         <h1 class="main-title">Automation Testing Playground</h1>
         
@@ -39,33 +53,32 @@
         </section>
         
         <!-- Section 3: Checkboxes that show/hide content -->
-       <!-- Checkbox Section with improved alignment -->
-<section id="checkbox-section">
-    <h2>Checkbox Testing</h2>
-    <p>Check the boxes to reveal hidden content:</p>
-    
-    <div class="checkbox-container">
-        <div class="checkbox-option">
-            <input type="checkbox" id="checkbox1" name="checkbox1">
-            <label for="checkbox1">Show First Content</label>
-        </div>
-        
-        <div class="checkbox-option">
-            <input type="checkbox" id="checkbox2" name="checkbox2">
-            <label for="checkbox2">Show Second Content</label>
-        </div>
-        
-        <div class="checkbox-option">
-            <input type="checkbox" id="checkbox3" name="checkbox3">
-            <label for="checkbox3">Enable Button</label>
-        </div>
-    </div>
-    
-    <div id="checkbox1Result" class="checkbox-result">This content appears when Checkbox 1 is checked!</div>
-    <div id="checkbox2Result" class="checkbox-result">This content appears when Checkbox 2 is checked!</div>
-    <button id="conditionalBtn" disabled>This Button is Enabled by Checkbox 3</button>
-    <div id="checkboxBtnResult" class="checkbox-result"></div>
-</section>
+        <section id="checkbox-section">
+            <h2>Checkbox Testing</h2>
+            <p>Check the boxes to reveal hidden content:</p>
+            
+            <div class="checkbox-container">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="checkbox1" name="checkbox1">
+                    <label for="checkbox1">Show First Content</label>
+                </div>
+                
+                <div class="checkbox-option">
+                    <input type="checkbox" id="checkbox2" name="checkbox2">
+                    <label for="checkbox2">Show Second Content</label>
+                </div>
+                
+                <div class="checkbox-option">
+                    <input type="checkbox" id="checkbox3" name="checkbox3">
+                    <label for="checkbox3">Enable Button</label>
+                </div>
+            </div>
+            
+            <div id="checkbox1Result" class="checkbox-result">This content appears when Checkbox 1 is checked!</div>
+            <div id="checkbox2Result" class="checkbox-result">This content appears when Checkbox 2 is checked!</div>
+            <button id="conditionalBtn" disabled>This Button is Enabled by Checkbox 3</button>
+            <div id="checkboxBtnResult" class="checkbox-result"></div>
+        </section>
         
         <!-- Section 4: Input fields with validation -->
         <section id="input-section">
@@ -175,7 +188,7 @@
             <h2>Image Testing</h2>
             <p>Test image loading and interactions:</p>
             <div class="responsive-image-container">
-                <img src="pictures\cat.jpg" alt="Test Image 1" id="testImage1" class="responsive-image">
+                <img src="pictures/cat.jpg" alt="Test Image 1" id="testImage1" class="responsive-image">
             </div>
             <div class="button-container">
                 <button id="changeImageBtn">Change Image</button>
@@ -196,7 +209,7 @@
         </section>
         
         <!-- Section 11: Radio Buttons -->
-            <section id="radio-section">
+        <section id="radio-section">
             <h2>Radio Button Testing</h2>
             <p>Select one of the options:</p>
             
@@ -219,8 +232,6 @@
             
             <div id="radioResult" class="result"></div>
         </section>
-    
-
         
         <!-- Section 12: Iframe Content -->
         <section id="iframe-section">
@@ -235,37 +246,48 @@
         </section>
     </div> <!-- Close the container div -->
 
-    <button onclick="topFunction()" id="backToTopBtn" title="Go to top">Top</button>
-
     <footer id="footer">
         <p>© 2025 ElenaT</p>
     </footer>
     
-
+    <!-- Simple Back to Top Button with inline styles for reliability -->
+    <button id="backToTopBtn" title="Back to Top">↑</button>
+    
+    <!-- Main script file -->
     <script src="scripts.js"></script>
     
-    </body>
-
-   <script>
-// back to top not working -- need to find out
-// Get the button
-let mybutton = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-</script>
-    </html>
+    <!-- Standalone Back to Top Button script for better reliability -->
+    <script>
+        // Simple Back to Top implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            var backToTopButton = document.getElementById('backToTopBtn');
+            
+            // Check if button exists
+            if (!backToTopButton) return;
+            
+            // Show/hide button based on scroll position
+            function checkScrollPosition() {
+                if (window.pageYOffset > 300 || document.documentElement.scrollTop > 300 || document.body.scrollTop > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            }
+            
+            // Attach scroll event listener
+            window.addEventListener('scroll', checkScrollPosition);
+            
+            // Scroll to top when button is clicked
+            backToTopButton.addEventListener('click', function() {
+                // For Safari
+                document.body.scrollTop = 0;
+                // For Chrome, Firefox, IE and Opera
+                document.documentElement.scrollTop = 0;
+            });
+            
+            // Initial check
+            checkScrollPosition();
+        });
+    </script>
+</body>
+</html>

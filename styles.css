@@ -7,44 +7,30 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    /* Changed from flex to block for better mobile compatibility */
+    display: block;
+    padding: 10px;
+    position: relative; /* For proper positioning of fixed elements */
 }
 
-/* Strict container control */
+/* Container adjustments for better mobile scrolling */
 .container {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden; /* Force hidden overflow in all directions */
-    max-height: 95vh;
-    overflow-y: auto; /* Only allow vertical scrolling */
-}
-
-/* Section overflow control */
-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    background-color: #fcfcfc;
-    max-width: 100%;
-    overflow: hidden; /* Prevent any overflow */
-    box-sizing: border-box; /* Include padding in width calculation */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    height: auto; /* Allow content to determine height */
 }
 
 .main-title {
@@ -61,9 +47,9 @@ section {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden; /* Prevents content from overflowing */
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     background-color: #fcfcfc;
+    overflow: visible; /* Allow content to be visible */
 }
 
 section h2 {
@@ -225,38 +211,19 @@ tr:nth-child(even) {
     margin: 15px 0;
 }
 
-/* Enhanced mobile-specific image control */
+/* Enhanced mobile-specific styles */
 @media screen and (max-width: 768px) {
     .container {
         padding: 15px;
-        max-height: none; /* Remove max-height restriction on mobile */
-        overflow: hidden;
+        margin: 10px auto;
     }
     
     body {
-        padding: 10px;
-        display: block; /* Change from flex to block on mobile for natural document flow */
+        padding: 5px;
     }
     
     section {
         padding: 15px;
-        width: 100%;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-    
-    .responsive-image-container {
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto 15px;
-        padding: 0;
-    }
-    
-    .responsive-image {
-        width: 100%;
-        max-width: 100%;
-        object-fit: contain;
-        height: auto;
     }
     
     .checkbox-container {
@@ -285,10 +252,6 @@ tr:nth-child(even) {
 }
 
 @media screen and (max-width: 480px) {
-    body {
-        padding: 5px;
-    }
-    
     button {
         width: 100%;
         margin: 5px 0;
@@ -368,7 +331,7 @@ tr:nth-child(even) {
     transition: width 0.5s;
 }
 
-/* Responsive images - simplified but effective approach */
+/* Responsive images */
 .image-section {
     display: flex;
     flex-direction: column;
@@ -396,26 +359,6 @@ tr:nth-child(even) {
 
 .hidden {
     display: none !important;
-}
-
-/* Small screen enhancement */
-@media screen and (max-width: 480px) {
-    .responsive-image-container {
-        padding: 0;
-        width: 100%;
-        max-width: 100vw;
-        box-sizing: border-box;
-        margin-left: -15px;
-        margin-right: -15px;
-        transform: scale(0.9); /* Slightly scale down to ensure no overflow */
-    }
-    
-    .responsive-image {
-        max-width: 100%;
-        width: auto;
-        max-height: 300px;
-        margin: 0 auto;
-    }
 }
 
 /* Hover testing area */
@@ -457,6 +400,7 @@ tr:nth-child(even) {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
 /* Fix for oversized iframe */
 #iframe-section .responsive-iframe-container {
     margin-bottom: 15px; /* Reduce bottom margin */  
@@ -470,15 +414,6 @@ tr:nth-child(even) {
     height: 200px; /* Set explicit height */
 }
 
-/* When iframe has content */
-#iframe-section iframe.has-content {
-    height: 200px; /* Set a reasonable fixed height */
-}
-
-/* Adjust button position */
-#iframe-section #updateIframeBtn {
-    margin-top: 8; /* Remove top margin from button */
-}
 /* Checkbox Section Improvements */
 #checkbox-section {
     margin-bottom: 30px;
@@ -492,7 +427,6 @@ tr:nth-child(even) {
     display: flex;    
     gap: 10px;
     margin: 10px 0;
-    
 }
 
 /* Each checkbox option with proper alignment */
@@ -501,11 +435,6 @@ tr:nth-child(even) {
     align-items: center;
     padding: 5px;
     transition: background-color 0.2s;
-}
-
-/* Hover effect for better interactivity */
-.checkbox-option:hover {
-    background-color: #64b4e2;
 }
 
 /* Position the checkbox properly */
@@ -545,7 +474,6 @@ input[type="checkbox"] {
     cursor: not-allowed;
 }
 
-
 /* Container for all radio options */
 #radio-section .radio-options {
     display: flex;
@@ -572,18 +500,14 @@ input[type="checkbox"] {
 #radio-section label {
     display: block;
 }
+
 /* Make label clickable and aligned */
 .radio-option label {
     cursor: pointer;
     vertical-align: middle;
 }
 
-/* Hover effect for better interactivity */
-.radio-option:hover {
-    background-color: #64b4e2;
-}
-
-/* For smaller screens, adjust layout */
+/* Radio options at smaller screens */
 @media (max-width: 600px) {
     #radio-section .radio-options {
         flex-direction: column;
@@ -591,8 +515,7 @@ input[type="checkbox"] {
     }
 }
 
-
-/* Footer positioning fix */
+/* Footer styling */
 #footer {
     width: 100%;
     text-align: center;
@@ -600,18 +523,7 @@ input[type="checkbox"] {
     margin-top: 30px;
     border-top: 1px solid #eee;
     background-color: #f9f9f9;
-    clear: both;
-}
-
-/* footer positioning */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Full viewport height */
-}
-
-.container {
-    flex: 1; /* Takes up all available space */
+    position: relative;
 }
 
 /* Copyright text styling */
@@ -621,26 +533,42 @@ body {
     font-size: 0.9rem;
 }
 
-
-/* back to top not working -- need to find out */
+/* Back to Top Button styling */
 #backToTopBtn {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: #3498db; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 50%; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
-  width: 50px;
-  height: 50px;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 22px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s, transform 0.3s;
+    line-height: 30px;
 }
 
 #backToTopBtn:hover {
-  background-color: #555; /* Add a dark-grey background on hover */
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+/* Make button more visible on mobile */
+@media screen and (max-width: 768px) {
+    #backToTopBtn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        line-height: 40px;
+        bottom: 30px;
+        right: 30px;
+    }
 }
