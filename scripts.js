@@ -327,3 +327,34 @@ document.getElementById('updateIframeBtn').addEventListener('click', function() 
     // Wait a bit for the iframe content to be updated
     setTimeout(adjustIframeHeight, 100);
 });
+
+// Back to Top Button Functionality
+// back to top not working -- need to find out
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the button element
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (!backToTopBtn) return;
+    
+    // Add click event listener
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Show/hide button on scroll
+    window.addEventListener('scroll', function() {
+        // Use a simpler threshold - show button after scrolling 300px
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+    
+    // Initial check in case page is refreshed while already scrolled down
+    if (window.pageYOffset > 300) {
+        backToTopBtn.style.display = 'block';
+    }
+});
